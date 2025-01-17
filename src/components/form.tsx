@@ -2,44 +2,17 @@ import LogoMark from '../assets/images/logo-mark.svg'
 import InfoIcon from '../assets/images/icon-info.svg'
 import UploadIcon from '../assets/images/icon-upload.svg'
 import { FileUploader } from "react-drag-drop-files";
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAvatar, setFullName, setEmail, setGithub, setSubmit } from '../store/slice';
 
-// Validation logic for GitHub username
-const isGithubUsernameValid = (username: string) => {
-    // GitHub username rules:
-    // - Must be between 1-39 characters
-    // - Can only contain alphanumeric characters and single hyphens
-    // - Cannot begin or end with a hyphen
-    const githubPattern = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
-    return githubPattern.test(username.replace('@', '')); // Remove @ if present
-};
+
 const Form = () => {
     const fileTypes = ["JPG", "PNG"];
     const dispatch = useDispatch();
-    const { avatar, fullName, email, github } = useSelector((state: any) => state.ticket);
-    const [error, setError] = useState('');
-    // const [file, setFile] = useState('');
-    // const [name, setName] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [github, setGithub] = useState('');
-
     const handleChange = (file: any) => {
         // setFile(file);
         dispatch(setAvatar(file));
         if (file) { console.log("photo uploaded!") }
-    };
-    const onSubmitHandler = () => {
-        if (!isGithubUsernameValid(github)) {
-            setError('Invalid GitHub username format.');
-            return;
-        } else {
-            setError(''); // Clear error if username is valid
-            console.log('Form submitted successfully!');
-            dispatch(setSubmit(true))
-            // You can add further submission logic here
-        }
     };
     return (
         <div className='flex flex-col justify-center items-center gap-4'>
@@ -52,21 +25,14 @@ const Form = () => {
                 <h1 className='text-white font-semibold text-4xl'>  Your Journey to Coding Conf <br /> 2025 Starts Here!</h1>
                 <p className='text-white font-light text-base opacity-90 pt-3'>  Secure your spot at next year's biggest coding conference.</p>
             </div>
-
-            <form onSubmit={onSubmitHandler} className='text-start flex flex-col gap-3 w-80' >
+            <form onSubmit={() => dispatch(setSubmit(true))} className='text-start flex flex-col gap-3 w-80' >
                 <div className=''>
                     <h4 className='text-white font-light text-sm opacity-95  '>  Upload Avatar </h4>
-                    {/* <label htmlFor="photo upload"
-                        className=' mt-2 border-2 border-dashed border-white bg-white border-opacity-35 bg-opacity-10 rounded-lg cursor-pointer flex flex-col items-center py-4 px-7' >
-                        <div className='p-2 border-2 border-neutral-dark bg-white bg-opacity-10 rounded-lg '>
-                            <img src={UploadIcon} className='max-w-6' />
-                        </div>
-                        <p className='text-white font-light text-xs  opacity-70 mt-1 '>  Drag and drop or click to upload    </p>
 
-                    </label> */}
                     <FileUploader
                         handleChange={handleChange}
                         name="file"
+                        required
                         classes='mt-2 border-2 border-dashed border-white bg-white border-opacity-35 bg-opacity-10 rounded-lg cursor-pointer flex flex-col items-center py-4 px-7'
 
                         types={fileTypes}
@@ -81,8 +47,6 @@ const Form = () => {
                             </div>
                         }
                     />
-
-                    {/* <input type='file' id='photo upload' draggable="true" hidden /> */}
                     <div className='inline-flex gap-1'>
                         <img src={InfoIcon} className='max-w-3 mt-1' />
                         <p className='text-white font-light text-[9px] opacity-85 mt-1 '>  Upload your photo (JPG or PNG, max size: 500KB).                        </p>
@@ -93,11 +57,8 @@ const Form = () => {
 
                     <input type='text'
                         onChange={(e) => dispatch(setFullName(e.target.value))}
-
                         className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg   border-2 border-opacity-35  border-white text-white focus:outline-none' required
                     />
-
-
                 </div>
                 <div>
                     <h4 className='text-white font-light text-sm opacity-95'>  Email Address          </h4>
@@ -112,11 +73,7 @@ const Form = () => {
                         onChange={(e) => dispatch(setGithub(e.target.value))}
                         className='mt-2 bg-[#ffffff12] w-full p-2 text-xs rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35  border-white text-white focus:outline-none' required
                     />
-                    {error && (
-                        <p className='text-red-500 text-xs mt-1'>
-                            {error}
-                        </p>
-                    )}
+
                 </div>
                 <button type='submit' className='bg-orange-dark text-neutral-darkest text-xs font-bold  p-2 rounded-lg mt-2'>  Generate My Ticket</button>
             </form>
