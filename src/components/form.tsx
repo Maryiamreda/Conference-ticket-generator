@@ -3,16 +3,42 @@ import InfoIcon from '../assets/images/icon-info.svg'
 import UploadIcon from '../assets/images/icon-upload.svg'
 import { FileUploader } from "react-drag-drop-files";
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAvatar, setFullName, setEmail, setGithub } from '../store/slice';
 
+// Validation logic for GitHub username
+const isGithubUsernameValid = (username: string) => {
+    // GitHub username rules:
+    // - Must be between 1-39 characters
+    // - Can only contain alphanumeric characters and single hyphens
+    // - Cannot begin or end with a hyphen
+    const githubPattern = /^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/;
+    return githubPattern.test(username.replace('@', '')); // Remove @ if present
+};
 const Form = () => {
     const fileTypes = ["JPG", "PNG"];
+    const dispatch = useDispatch();
+    const { avatar, fullName, email, github } = useSelector((state: any) => state.ticket);
+    const [error, setError] = useState('');
+    const [file, setFile] = useState('');
+    const [name, setName] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [github, setGithub] = useState('');
 
-    const [file, setFile] = useState(null);
     const handleChange = (file: any) => {
         setFile(file);
+        setAvatar(file);
         if (file) { console.log("photo uploaded!") }
     };
-
+    const handleSubmit = () => {
+        if (!isGithubUsernameValid(github)) {
+            setError('Invalid GitHub username format.');
+        } else {
+            setError(''); // Clear error if username is valid
+            console.log('Form submitted successfully!');
+            // You can add further submission logic here
+        }
+    };
     return (
         <div className='flex flex-col justify-center items-center gap-4'>
             <div className="logo flex gap-2">
@@ -64,7 +90,9 @@ const Form = () => {
                     <h4 className='text-white font-light text-sm opacity-95'>  Full Name </h4>
 
                     <input type='text'
-                        className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg   border-2 border-opacity-35  border-white text-white focus:outline-none'
+                        onChange={(e) => dispatch(setFullName(e.target.value))}
+
+                        className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg   border-2 border-opacity-35  border-white text-white focus:outline-none' required
                     />
 
 
@@ -72,14 +100,21 @@ const Form = () => {
                 <div>
                     <h4 className='text-white font-light text-sm opacity-95'>  Email Address          </h4>
                     <input type='email' placeholder='  example@email.com'
-                        className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35   border-white text-white focus:outline-none'
+                        onChange={(e) => dispatch(setEmail(e.target.value))}
+                        className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35   border-white text-white focus:outline-none' required
                     />
                 </div>
                 <div>
                     <h4 className='text-white font-light text-sm opacity-95'>  GitHub Username          </h4>
                     <input type='text' placeholder='  @yourusername'
-                        className='mt-2 bg-[#ffffff12] w-full p-2 text-xs rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35  border-white text-white focus:outline-none'
+                        onChange={(e) => dispatch(setGithub(e.target.value))}
+                        className='mt-2 bg-[#ffffff12] w-full p-2 text-xs rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35  border-white text-white focus:outline-none' required
                     />
+                    {error && (
+                        <p className='text-red-500 text-xs mt-1'>
+                            {error}
+                        </p>
+                    )}
                 </div>
                 <button className='bg-orange-dark text-neutral-darkest text-xs font-bold  p-2 rounded-lg mt-2'>  Generate My Ticket</button>
             </form>
