@@ -3,7 +3,8 @@ const initialState = {
     avatar: null,
     fullName: '',
     email: '',
-    github: ''
+    github: '',
+    submit: false
 }
 export const ticketSlice = createSlice({
     name: "ticket",
@@ -21,7 +22,10 @@ export const ticketSlice = createSlice({
         setGithub: (state, action) => {
             state.github = action.payload;
         },
+        setSubmit: (state, action) => {
+            state.submit = action.payload;
+        }
     },
 })
-export const { setAvatar, setFullName, setEmail, setGithub } = ticketSlice.actions; //These are functions that return actions that can be dispatched.
+export const { setAvatar, setFullName, setEmail, setGithub, setSubmit } = ticketSlice.actions; //These are functions that return actions that can be dispatched.
 export default ticketSlice.reducer; // It's responsible for applying the changes based on the dispatched actions.

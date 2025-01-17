@@ -4,7 +4,7 @@ import UploadIcon from '../assets/images/icon-upload.svg'
 import { FileUploader } from "react-drag-drop-files";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAvatar, setFullName, setEmail, setGithub } from '../store/slice';
+import { setAvatar, setFullName, setEmail, setGithub, setSubmit } from '../store/slice';
 
 // Validation logic for GitHub username
 const isGithubUsernameValid = (username: string) => {
@@ -20,22 +20,24 @@ const Form = () => {
     const dispatch = useDispatch();
     const { avatar, fullName, email, github } = useSelector((state: any) => state.ticket);
     const [error, setError] = useState('');
-    const [file, setFile] = useState('');
-    const [name, setName] = useState('');
+    // const [file, setFile] = useState('');
+    // const [name, setName] = useState('');
     // const [email, setEmail] = useState('');
     // const [github, setGithub] = useState('');
 
     const handleChange = (file: any) => {
-        setFile(file);
-        setAvatar(file);
+        // setFile(file);
+        dispatch(setAvatar(file));
         if (file) { console.log("photo uploaded!") }
     };
-    const handleSubmit = () => {
+    const onSubmitHandler = () => {
         if (!isGithubUsernameValid(github)) {
             setError('Invalid GitHub username format.');
+            return;
         } else {
             setError(''); // Clear error if username is valid
             console.log('Form submitted successfully!');
+            dispatch(setSubmit(true))
             // You can add further submission logic here
         }
     };
@@ -51,7 +53,7 @@ const Form = () => {
                 <p className='text-white font-light text-base opacity-90 pt-3'>  Secure your spot at next year's biggest coding conference.</p>
             </div>
 
-            <form className='text-start flex flex-col gap-3 w-80'>
+            <form onSubmit={onSubmitHandler} className='text-start flex flex-col gap-3 w-80' >
                 <div className=''>
                     <h4 className='text-white font-light text-sm opacity-95  '>  Upload Avatar </h4>
                     {/* <label htmlFor="photo upload"
@@ -116,7 +118,7 @@ const Form = () => {
                         </p>
                     )}
                 </div>
-                <button className='bg-orange-dark text-neutral-darkest text-xs font-bold  p-2 rounded-lg mt-2'>  Generate My Ticket</button>
+                <button type='submit' className='bg-orange-dark text-neutral-darkest text-xs font-bold  p-2 rounded-lg mt-2'>  Generate My Ticket</button>
             </form>
 
         </div>
