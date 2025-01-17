@@ -1,9 +1,18 @@
-import React from 'react';
 import LogoMark from '../assets/images/logo-mark.svg'
 import InfoIcon from '../assets/images/icon-info.svg'
 import UploadIcon from '../assets/images/icon-upload.svg'
+import { FileUploader } from "react-drag-drop-files";
+import { useState } from 'react';
 
 const Form = () => {
+    const fileTypes = ["JPG", "PNG"];
+
+    const [file, setFile] = useState(null);
+    const handleChange = (file: any) => {
+        setFile(file);
+        if (file) { console.log("photo uploaded!") }
+    };
+
     return (
         <div className='flex flex-col justify-center items-center gap-4'>
             <div className="logo flex gap-2">
@@ -19,15 +28,33 @@ const Form = () => {
             <form className='text-start flex flex-col gap-3 w-80'>
                 <div className=''>
                     <h4 className='text-white font-light text-sm opacity-95  '>  Upload Avatar </h4>
-                    <label htmlFor="photo upload"
+                    {/* <label htmlFor="photo upload"
                         className=' mt-2 border-2 border-dashed border-white bg-white border-opacity-35 bg-opacity-10 rounded-lg cursor-pointer flex flex-col items-center py-4 px-7' >
                         <div className='p-2 border-2 border-neutral-dark bg-white bg-opacity-10 rounded-lg '>
                             <img src={UploadIcon} className='max-w-6' />
                         </div>
                         <p className='text-white font-light text-xs  opacity-70 mt-1 '>  Drag and drop or click to upload    </p>
-                    </label>
 
-                    <input type='file' id='photo upload' draggable="true" hidden />
+                    </label> */}
+                    <FileUploader
+                        handleChange={handleChange}
+                        name="file"
+                        classes='mt-2 border-2 border-dashed border-white bg-white border-opacity-35 bg-opacity-10 rounded-lg cursor-pointer flex flex-col items-center py-4 px-7'
+
+                        types={fileTypes}
+                        children={
+                            <div className='flex flex-col items-center'>
+                                <div className='p-2 border-2 border-neutral-dark bg-white bg-opacity-10 rounded-lg'>
+                                    <img src={UploadIcon} className='max-w-6' alt="upload icon" />
+                                </div>
+                                <p className='text-white font-light text-xs opacity-70 mt-1'>
+                                    Drag and drop or click to upload
+                                </p>
+                            </div>
+                        }
+                    />
+
+                    {/* <input type='file' id='photo upload' draggable="true" hidden /> */}
                     <div className='inline-flex gap-1'>
                         <img src={InfoIcon} className='max-w-3 mt-1' />
                         <p className='text-white font-light text-[9px] opacity-85 mt-1 '>  Upload your photo (JPG or PNG, max size: 500KB).                        </p>
