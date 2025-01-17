@@ -5,7 +5,7 @@ import UploadIcon from '../assets/images/icon-upload.svg'
 
 const Form = () => {
     return (
-        <div className='flex flex-col justify-center items-center gap-5'>
+        <div className='flex flex-col justify-center items-center gap-4'>
             <div className="logo flex gap-2">
                 <img src={LogoMark} className='max-w-5' />
                 <h3 className='text-white font-semibold text-xl'>  Coding Conf
@@ -16,16 +16,15 @@ const Form = () => {
                 <p className='text-white font-light text-base opacity-90 pt-3'>  Secure your spot at next year's biggest coding conference.</p>
             </div>
 
-            <form className='text-start flex flex-col gap-6 w-80'>
+            <form className='text-start flex flex-col gap-3 w-80'>
                 <div className=''>
-                    <h4 className='text-white font-light text-lg opacity-95  '>  Upload Avatar </h4>
+                    <h4 className='text-white font-light text-sm opacity-95  '>  Upload Avatar </h4>
                     <label htmlFor="photo upload"
-                        className=' mt-3 border-2 border-dashed border-white bg-white bg-opacity-10 rounded-lg cursor-pointer flex flex-col items-center p-7' >
-                        <div className='p-3 border-2 border-neutral-dark bg-white bg-opacity-10 rounded-lg '>
-                            <img src={UploadIcon} />
-
+                        className=' mt-2 border-2 border-dashed border-white bg-white border-opacity-35 bg-opacity-10 rounded-lg cursor-pointer flex flex-col items-center py-4 px-7' >
+                        <div className='p-2 border-2 border-neutral-dark bg-white bg-opacity-10 rounded-lg '>
+                            <img src={UploadIcon} className='max-w-6' />
                         </div>
-                        <p className='text-white font-light  opacity-85 mt-1 '>  Drag and drop or click to upload    </p>
+                        <p className='text-white font-light text-xs  opacity-70 mt-1 '>  Drag and drop or click to upload    </p>
                     </label>
 
                     <input type='file' id='photo upload' draggable="true" hidden />
@@ -35,21 +34,27 @@ const Form = () => {
                     </div>
                 </div>
                 <div className=''>
-                    <h4 className='text-white font-light text-lg opacity-95'>  Full Name </h4>
+                    <h4 className='text-white font-light text-sm opacity-95'>  Full Name </h4>
 
-                    <input type='text' className='mt-2  opacity-15 w-full p-2 rounded-lg  border-white' />
+                    <input type='text'
+                        className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg   border-2 border-opacity-35  border-white text-white focus:outline-none'
+                    />
 
 
                 </div>
                 <div>
-                    <h4 className='text-white font-light text-lg opacity-95'>  Email Address          </h4>
-                    <input type='email' placeholder='  example@email.com' className='mt-2 opacity-15 w-full p-2 rounded-lg  border-white' />
+                    <h4 className='text-white font-light text-sm opacity-95'>  Email Address          </h4>
+                    <input type='email' placeholder='  example@email.com'
+                        className='mt-2 bg-[#ffffff12] text-xs w-full p-2 rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35   border-white text-white focus:outline-none'
+                    />
                 </div>
                 <div>
-                    <h4 className='text-white font-light text-lg opacity-95'>  GitHub Username          </h4>
-                    <input type='text' placeholder='  @yourusername' className=' mt-2  opacity-15 w-full p-2 rounded-lg  ' />
+                    <h4 className='text-white font-light text-sm opacity-95'>  GitHub Username          </h4>
+                    <input type='text' placeholder='  @yourusername'
+                        className='mt-2 bg-[#ffffff12] w-full p-2 text-xs rounded-lg  placeholder-white placeholder-opacity-70 border-2 border-opacity-35  border-white text-white focus:outline-none'
+                    />
                 </div>
-                <button className='bg-orange-dark text-neutral-darkest text-xs font-bold  p-2 rounded'>  Generate My Ticket</button>
+                <button className='bg-orange-dark text-neutral-darkest text-xs font-bold  p-2 rounded-lg mt-2'>  Generate My Ticket</button>
             </form>
 
         </div>
