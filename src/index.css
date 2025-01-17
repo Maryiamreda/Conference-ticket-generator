@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* pattern-squiggly-line-top.svg */
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-image: url("./assets/images/pattern-squiggly-line-bottom.svg"), url("./assets/images/pattern-squiggly-line-top.svg"),
+    url("./assets/images/pattern-circle.svg"), url("./assets/images/pattern-circle.svg"),
+    url("./assets/images/pattern-lines.svg"),
+    url("./assets/images/background-desktop.png");
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  background-size:
+    40%,
+    /* Changed from normal */
+    30%,
+    /* Changed from normal */
+    13%,
+    /* Changed from normal */
+    13%,
+    /* Changed from normal */
+    cover,
+    cover;
+  /* Resize the background image to cover the entire container */
+  background-position: bottom -25% left, top 10% right, left 5% top -10%, right 35% bottom 45%, center, center;
+
+
+}
