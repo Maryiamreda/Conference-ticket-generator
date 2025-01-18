@@ -23,6 +23,9 @@ export default {
           textEnd: 'hsl(0, 0%, 100%)',
         },
       },
+      backgroundImage: {
+        'ticket-pattern': "url(../assets/images/pattern-ticket.svg)"
+      }
     },
   },
   plugins: [],

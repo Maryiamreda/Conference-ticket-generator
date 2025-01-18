@@ -1,0 +1,14 @@
+.ticket {
+    width: 392px;
+    height: 227px;
+    background-image: url('../assets/images/pattern-ticket.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.name-gradiant {
+    background: linear-gradient(to right, hsl(7, 86%, 67%), hsl(0, 0%, 100%));
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
