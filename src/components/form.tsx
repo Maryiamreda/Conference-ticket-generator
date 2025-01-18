@@ -10,10 +10,13 @@ const Form = () => {
     const fileTypes = ["JPG", "PNG"];
     const dispatch = useDispatch();
     const handleChange = (file: any) => {
-        // setFile(file);
-        dispatch(setAvatar(file));
-        if (file) { console.log("photo uploaded!") }
+        if (file) {
+            const url = URL.createObjectURL(file);
+            dispatch(setAvatar(url));  // Now we're dispatching the URL string, not the file
+            console.log("photo uploaded!")
+        }
     };
+
     return (
         <div className='flex flex-col justify-center items-center gap-4'>
             <div className="logo flex gap-2">

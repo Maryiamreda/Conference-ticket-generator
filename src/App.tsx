@@ -3,13 +3,14 @@
 import { useSelector } from 'react-redux';
 import './App.css'
 import Form from './components/form'
+import Ticket from './components/ticket';
 
 function App() {
-  const { fullName, email, github, submit } = useSelector((state: any) => state.ticket);
+  const { submit } = useSelector((state: any) => state.ticket);
 
   return (
     <div>
-      {submit ? <div>NAME IS {fullName} , EMAIL IS {email} , GIHUB IS {github}</div> : <Form />}
+      {submit ? <Ticket /> : <Form />}
 
     </div>
   )
