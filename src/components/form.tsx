@@ -9,10 +9,14 @@ import { setAvatar, setFullName, setEmail, setGithub, setSubmit } from '../store
 const Form = () => {
     const fileTypes = ["JPG", "PNG"];
     const dispatch = useDispatch();
+
     const handleChange = (file: any) => {
         if (file) {
+            console.log(file)
             const url = URL.createObjectURL(file);
             dispatch(setAvatar(url));  // Now we're dispatching the URL string, not the file
+            console.log(url)
+
             console.log("photo uploaded!")
         }
     };

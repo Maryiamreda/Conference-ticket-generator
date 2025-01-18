@@ -5,7 +5,6 @@ import githubLogo from '../assets/images/icon-github.svg'
 import './ticket.css'
 const Ticket = () => {
     const { avatar, fullName, email, github } = useSelector((state: any) => state.ticket);
-
     return (
         <div className='flex flex-col justify-center items-center gap-4'>
             <div className="logo flex gap-2">
